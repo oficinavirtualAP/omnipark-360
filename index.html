@@ -204,6 +204,8 @@ function enterVR(){if(_xrOn)return;import('./three.module.js').then(function(T){
 </script><div id="offpill" style="position:fixed;left:16px;top:16px;z-index:9999;display:none;background:rgba(31,35,39,.92);color:#fff;font:600 12px Montserrat,sans-serif;padding:8px 14px;border-radius:20px;border:1px solid #3a4046"></div>
 <script>(function(){try{if(!("serviceWorker" in navigator))return;var p=document.getElementById("offpill");
 navigator.serviceWorker.register("service-worker.js").catch(function(){});
+try{if(navigator.storage&&navigator.storage.persist){navigator.storage.persist().then(function(ok){if(!ok&&navigator.storage.estimate){navigator.storage.estimate().catch(function(){});}}).catch(function(){});}}catch(e){}
+navigator.serviceWorker.ready.then(function(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}}).catch(function(){});
 navigator.serviceWorker.addEventListener("message",function(e){var d=e.data||{};
  if(d.type==="cache"){p.style.display="block";p.textContent="Guardando para uso sin internet... "+Math.round(100*d.done/d.total)+"%";}
  else if(d.type==="cacheDone"){p.style.display="block";p.textContent="\u2713 Listo para usar sin internet";setTimeout(function(){p.style.display="none";},6000);}});
